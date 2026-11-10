@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2026 CATIE
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/gpio/sixtron-header.h>
+
+#define PERIPHERAL_ZEST_RADIO_HERACLES224G(port) \
+	uart_zest_radio_heracles224g_##port: &sixtron_connector_##port##_uart {};
+
+#define DRIVERS_ZEST_RADIO_HERACLES224G(port) \
+	&uart_zest_radio_heracles224g_##port { \
+		status = "okay"; \
+		current-speed = <115200>; \
+		heracles224g_zest_radio_heracles224g_##port: modem_##port { \
+			compatible = "simcom,heracles224g"; \
+			status = "okay"; \
+			mdm-power-gpios = <&sixtron_connector_##port DIO2 GPIO_ACTIVE_HIGH>; \
+			mdm-status-gpios = <&sixtron_connector_##port DIO7 GPIO_ACTIVE_HIGH>; \
+			mdm-dtr-gpios = <&sixtron_connector_##port DIO10 GPIO_ACTIVE_LOW>; \
+		}; \
+	};
+
+#define ZEST_RADIO_HERACLES224G(port) \
+	PERIPHERAL_ZEST_RADIO_HERACLES224G(port) \
+	DRIVERS_ZEST_RADIO_HERACLES224G(port)
