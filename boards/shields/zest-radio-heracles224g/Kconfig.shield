@@ -3,3 +3,6 @@
 
 config SHIELD_ZEST_RADIO_HERACLES224G
 	def_bool $(shields_list_contains,zest_radio_heracles224g)
+
+config SHIELD_ZEST_RADIO_HERACLES224G_ALT
+	def_bool $(shields_list_contains,zest_radio_heracles224g_alt)
